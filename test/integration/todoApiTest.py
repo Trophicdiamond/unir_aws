@@ -163,7 +163,7 @@ class TestApi(unittest.TestCase):
         self.assertTrue(response.json())
         
         print('End - integration test List TODO')
-
+    @pytest.mark.read
     def test_api_gettodo(self):
         print('---------------------------------------')
         print('Starting - integration test Get TODO')
