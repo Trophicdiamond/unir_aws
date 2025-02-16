@@ -19,36 +19,6 @@ class TestApi(unittest.TestCase):
         self.assertIsNotNone(BASE_URL, "URL no configurada")
         self.assertTrue(len(BASE_URL) > 8, "URL no configurada")
              
-    def test_api_listtodos(self):
-        print('---------------------------------------')
-        print('Starting - integration test List TODO')
-        #Add TODO
-        url = BASE_URL+"/todos"
-        data = {
-         "text": "Integration text example"
-        }
-        response = requests.post(url, data=json.dumps(data))
-        json_response = response.json()
-        print('Response Add Todo: '+ str(json_response))
-        jsonbody= json.loads(json_response['body'])
-        ID_TODO = jsonbody['id']
-        print ('ID todo:'+ID_TODO)
-        self.assertEqual(
-            response.status_code, 200, "Error en la petición API a {url}"
-        )
-        self.assertEqual(
-            jsonbody['text'], "Integration text example", "Error en la petición API a {url}"
-        )
-        #List
-        url = BASE_URL+"/todos"
-        response = requests.get(url)
-        print('Response List Todo:' + str(response.json()))
-        self.assertEqual(
-            response.status_code, 200, "Error en la petición API a {url}"
-        )
-        self.assertTrue(response.json())
-        
-        print('End - integration test List TODO')
     def test_api_addtodo(self):
         print('---------------------------------------')
         print('Starting - integration test Add TODO')
@@ -74,44 +44,6 @@ class TestApi(unittest.TestCase):
             response.status_code, 200, "Error en la petición API a {url}"
         )
         print('End - integration test Add TODO')
-        
-    def test_api_gettodo(self):
-        print('---------------------------------------')
-        print('Starting - integration test Get TODO')
-        #Add TODO
-        url = BASE_URL+"/todos"
-        data = {
-         "text": "Integration text example - GET"
-        }
-        response = requests.post(url, data=json.dumps(data))
-        json_response = response.json()
-        print('Response Add Todo: '+ str(json_response))
-        jsonbody= json.loads(json_response['body'])
-        ID_TODO = jsonbody['id']
-        print ('ID todo:'+ID_TODO)
-        self.assertEqual(
-            response.status_code, 200, "Error en la petición API a {url}"
-        )
-        self.assertEqual(
-            jsonbody['text'], "Integration text example - GET", "Error en la petición API a {url}"
-        )
-        #Test GET TODO
-        url = BASE_URL+"/todos/"+ID_TODO
-        response = requests.get(url)
-        json_response = response.json()
-        print('Response Get Todo: '+ str(json_response))
-        self.assertEqual(
-            response.status_code, 200, "Error en la petición API a {url}"
-        )
-        self.assertEqual(
-            json_response['text'], "Integration text example - GET", "Error en la petición API a {url}"
-        )
-        #Delete TODO to restore state
-        response = requests.delete(url)
-        self.assertEqual(
-            response.status_code, 200, "Error en la petición API a {url}"
-        )
-        print('End - integration test Get TODO')
     
     def test_api_updatetodo(self):
         print('---------------------------------------')
@@ -200,4 +132,75 @@ class TestApi(unittest.TestCase):
             response.status_code, 404, "Error en la petición API a {url}"
         )
         print('End - integration test Delete TODO')
-    
+        
+@pytest.mark.read
+class TestApi(unittest.TestCase):
+
+def test_api_listtodos(self):
+        print('---------------------------------------')
+        print('Starting - integration test List TODO')
+        #Add TODO
+        url = BASE_URL+"/todos"
+        data = {
+         "text": "Integration text example"
+        }
+        response = requests.post(url, data=json.dumps(data))
+        json_response = response.json()
+        print('Response Add Todo: '+ str(json_response))
+        jsonbody= json.loads(json_response['body'])
+        ID_TODO = jsonbody['id']
+        print ('ID todo:'+ID_TODO)
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            jsonbody['text'], "Integration text example", "Error en la petición API a {url}"
+        )
+        #List
+        url = BASE_URL+"/todos"
+        response = requests.get(url)
+        print('Response List Todo:' + str(response.json()))
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        self.assertTrue(response.json())
+        
+        print('End - integration test List TODO')
+
+def test_api_gettodo(self):
+        print('---------------------------------------')
+        print('Starting - integration test Get TODO')
+        #Add TODO
+        url = BASE_URL+"/todos"
+        data = {
+         "text": "Integration text example - GET"
+        }
+        response = requests.post(url, data=json.dumps(data))
+        json_response = response.json()
+        print('Response Add Todo: '+ str(json_response))
+        jsonbody= json.loads(json_response['body'])
+        ID_TODO = jsonbody['id']
+        print ('ID todo:'+ID_TODO)
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            jsonbody['text'], "Integration text example - GET", "Error en la petición API a {url}"
+        )
+        #Test GET TODO
+        url = BASE_URL+"/todos/"+ID_TODO
+        response = requests.get(url)
+        json_response = response.json()
+        print('Response Get Todo: '+ str(json_response))
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            json_response['text'], "Integration text example - GET", "Error en la petición API a {url}"
+        )
+        #Delete TODO to restore state
+        response = requests.delete(url)
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        print('End - integration test Get TODO')
