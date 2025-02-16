@@ -19,7 +19,6 @@ class TestApi(unittest.TestCase):
         self.assertIsNotNone(BASE_URL, "URL no configurada")
         self.assertTrue(len(BASE_URL) > 8, "URL no configurada")
         
-@pytest.mark.lecture
     def test_api_listtodos(self):
         print('---------------------------------------')
         print('Starting - integration test List TODO')
@@ -75,7 +74,7 @@ class TestApi(unittest.TestCase):
             response.status_code, 200, "Error en la petición API a {url}"
         )
         print('End - integration test Add TODO')
-@pytest.mark.lecture
+        
     def test_api_gettodo(self):
         print('---------------------------------------')
         print('Starting - integration test Get TODO')
