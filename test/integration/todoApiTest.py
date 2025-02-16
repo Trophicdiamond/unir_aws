@@ -132,7 +132,7 @@ class TestApi(unittest.TestCase):
             response.status_code, 404, "Error en la petición API a {url}"
         )
         print('End - integration test Delete TODO')
-
+    @pytest.mark.read
     def test_api_listtodos(self):
         print('---------------------------------------')
         print('Starting - integration test List TODO')
