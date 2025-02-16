@@ -136,7 +136,7 @@ class TestApi(unittest.TestCase):
 @pytest.mark.read
 class TestApi(unittest.TestCase):
 
-def test_api_listtodos(self):
+    def test_api_listtodos(self):
         print('---------------------------------------')
         print('Starting - integration test List TODO')
         #Add TODO
@@ -167,7 +167,7 @@ def test_api_listtodos(self):
         
         print('End - integration test List TODO')
 
-def test_api_gettodo(self):
+    def test_api_gettodo(self):
         print('---------------------------------------')
         print('Starting - integration test Get TODO')
         #Add TODO
